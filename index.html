@@ -18,6 +18,14 @@
       p {
         text-align: left;
       }
+      
+      .book {
+        border: 2px solid grey;
+        display: flex;
+        height: 50px;
+        justify-content: space-between;
+        width: 300px;
+      }
     </style>
   </head>
   
@@ -28,6 +36,60 @@
       Find your next favourite classic book! Browse our large shelf of classics, or search for a title or author and click "Search". Happy reading!
     </p>
     
-    <input id=""
+    <div>
+      <input id="title" placeholder="Title">
+      <input id="author" placeholder="Author">
+    </div>
+
+    <button onclick="search()">
+      Search
+    </button>
+    
+    <div id="results">
+      <!-- Put the results here. -->
+    </div>
+    
+    <script>
+      function showResults(books) {
+        const resultsNode = document.getElementById('results')
+        resultsNode.innerHTML = ''
+        
+        for (const book of books) {
+          const bookNode = document.createElement('div')
+          bookNode.className = 'book'
+          
+          bookNode.innerHTML = `
+            <span class="title">${book.title}</span>
+            <span class="author">${book.author}</span>
+          `
+          
+          resultsNode.appendChild(bookNode)
+        }
+      }
+
+      function search() {
+        const titleInput = document.getElementById('title')
+        const title = titleInput.value
+
+        const authorInput = document.getElementById('author')
+        const author = authorInput.value
+        
+        const queryString = ''
+        
+        if (title) {
+          queryString = queryString + 'title=' + title + '&'
+        }
+        
+        if (author) {
+          queryString = queryString + 'author=' + author
+        }
+        
+        fetch('/api/books?' + queryString)
+          .then(response => response.json())
+          .then(json => showResults(json))
+      }
+      
+      search()
+    </script>
   </body>
 </html>
