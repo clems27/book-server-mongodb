@@ -16,7 +16,26 @@
       }
       
       #book {
-        height: 500;
+        border: 2px solid grey;
+        display: flex;
+        flex-direction: column;
+        height: 300px;
+        justify-content: space-around;
+        margin: 20px auto;
+        padding: 20px;
+        width: 200px;
+      }
+      
+      #more {
+        margin-bottom: 20px
+      }
+      
+      #read-button {
+        margin-bottom: 20px;
+      }
+      
+      #title {
+        font-size: 150%;
       }
     </style>
   </head>
@@ -24,6 +43,10 @@
   <body>
     <div id="book">
       <!-- Show the book here. -->
+    </div>
+    
+    <div id="read">
+      <!-- Show a button here. -->
     </div>
     
     <div id="more">
@@ -46,6 +69,12 @@
         bookNode.innerHTML = `
           <span id="title">${book.title}</span>
           <span id="author">${book.author}</span>
+        `
+        
+        const readNode = document.getElementById('read')
+        
+        readNode.innerHTML = `
+          <a href="${book.url}" id="read-button">Read now</a>
         `
         
         const moreNode = document.getElementById('more')

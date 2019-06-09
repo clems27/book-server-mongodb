@@ -73,7 +73,7 @@
           
           bookNode.innerHTML = `
             <span class="title">
-              <a href="/books/${book.id}">${book.title}</a>
+              <a href="/books/${book._id}">${book.title}</a>
             </span>
             <span class="author">${book.author}</span>
           `
@@ -89,7 +89,7 @@
         const authorInput = document.getElementById('author')
         const author = authorInput.value
         
-        const queryString = ''
+        let queryString = ''
         
         if (title) {
           queryString = queryString + 'title=' + title + '&'
