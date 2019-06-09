@@ -11,10 +11,6 @@
         text-align: center;
       }
 
-      h1 {
-        text-align: center;
-      }
-
       p {
         text-align: left;
       }
@@ -22,12 +18,13 @@
   </head>
   
   <body>
-    <h1>Readwell</h1>
-    
-    <p>
-      Find your next favourite classic book! Browse our large shelf of classics, or search for a title or author and click "Search". Happy reading!
-    </p>
-    
-    <input id=""
+    <script>
+      // Get the ID string of the book.
+      const url = location.href
+      const urlParts = url.split('/')
+      const bookID = urlParts[urlParts.length - 1]
+      
+      // Do something with the ID...
+    </script>
   </body>
 </html>
