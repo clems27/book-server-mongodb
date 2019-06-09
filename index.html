@@ -19,12 +19,25 @@
         text-align: left;
       }
       
+      .author {
+        font-size: 80%;
+        text-align: right;
+      }
+      
       .book {
+        align-items: center;
         border: 2px solid grey;
         display: flex;
         height: 50px;
         justify-content: space-between;
+        margin: 20px auto;
+        overflow: hidden;
+        padding: 10px;
         width: 300px;
+      }
+      
+      .title {
+        text-align: left;
       }
     </style>
   </head>
@@ -59,7 +72,9 @@
           bookNode.className = 'book'
           
           bookNode.innerHTML = `
-            <span class="title">${book.title}</span>
+            <span class="title">
+              <a href="/books/${book.id}">${book.title}</a>
+            </span>
             <span class="author">${book.author}</span>
           `
           

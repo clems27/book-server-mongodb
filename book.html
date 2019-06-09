@@ -14,10 +14,24 @@
       p {
         text-align: left;
       }
+      
+      #book {
+        height: 500;
+      }
     </style>
   </head>
   
   <body>
+    <div id="book">
+      <!-- Show the book here. -->
+    </div>
+    
+    <div id="more">
+      <!-- Put a link to more books by the author here. -->
+    </div>
+    
+    <a href="/">&lt; Back</a>
+
     <script>
       // Get the ID string of the book.
       const url = location.href
@@ -25,6 +39,27 @@
       const bookID = urlParts[urlParts.length - 1]
       
       // Do something with the ID...
+      
+      function showBook(book) {
+        const bookNode = document.getElementById('book')
+        
+        bookNode.innerHTML = `
+          <span id="title">${book.title}</span>
+          <span id="author">${book.author}</span>
+        `
+        
+        const moreNode = document.getElementById('more')
+
+        moreNode.innerHTML = `
+          <a href="/authors/${book.author}">
+            More by this author
+          </a>
+        `
+      }
+      
+      fetch('/api/books/' + bookID)
+        .then(response => response.json())
+        .then(book => showBook(book))
     </script>
   </body>
 </html>
