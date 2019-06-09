@@ -5,12 +5,16 @@ const app = express()
 
 const uri = process.env.DATABASE_URI
 
-app.get('/books', function(request, response) {
+app.get('/', function(request, response) {
+  response.sendFile(__dirname + '/index.html');
+})
+
+app.get('/api/books', function(request, response) {
   const client = new mongodb.MongoClient(uri)
 
   client.connect(function() {
     const db = client.db('literature')
-    const tracksCollection = db.collection('books')
+    const collection = db.collection('books')
     
     const searchObject = {}
     
@@ -22,54 +26,32 @@ app.get('/books', function(request, response) {
       searchObject.author = request.query.author
     }
     
-    tracksCollection.find(searchObject).toArray(function(error, tracks) {
-      response.json(error || tracks)
+    collection.find(searchObject).toArray(function(error, books) {
+      response.json(error || books)
       client.close()
     })
   })
 })
 
-app.get('/books/:id', function(request, response) {
-  const client = new mongodb.MongoClient(uri)
-
-  client.connect(function() {
-    const db = client.db('music')
-    const tracksCollection = db.collection('tracks')
-    
-    const searchObject = {}
-    
-    if (request.query.artist) {
-      searchObject.artist = request.query.artist
-    }
-    
-    if (request.query.album) {
-      searchObject.album = request.query.album
-    }
-    
-    if (request.query.year) {
-      searchObject.year = Number(request.query.year)
-    }
-    
-    if (request.query.title) {
-      searchObject.title = request.query.title
-    }
-    
-    tracksCollection.find(searchObject).toArray(function(error, tracks) {
-      response.json(error || tracks)
-      client.close()
-    })
-  })
-})
-
-app.get('/books', function(request, response) {
+app.get('/api/books/:id', function(request, response) {
   const client = new mongodb.MongoClient(uri)
 
   client.connect(function() {
     const db = client.db('literature')
-    const booksCollection = db.collection('books')
+    const collection = db.collection('books')
     
-    booksCollection.find().toArray(function(error, books) {
-      response.json(error || books)
+    let id
+    try {
+      id = new mongodb.ObjectID(request.params.id)
+    } catch (error) {
+      response.status(500).send(error)
+      return
+    }
+    
+    const searchObject = { _id: id }
+    
+    collection.findOne(searchObject, function(error, book) {
+      response.json(error || book)
       client.close()
     })
   })
