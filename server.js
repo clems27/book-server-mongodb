@@ -6,51 +6,11 @@ const app = express()
 const uri = process.env.DATABASE_URI
 
 app.get('/api/books', function(request, response) {
-  const client = new mongodb.MongoClient(uri)
-
-  client.connect(function() {
-    const db = client.db('literature')
-    const collection = db.collection('books')
-    
-    const searchObject = {}
-    
-    if (request.query.title) {
-      searchObject.title = request.query.title
-    }
-    
-    if (request.query.author) {
-      searchObject.author = request.query.author
-    }
-    
-    collection.find(searchObject).toArray(function(error, books) {
-      response.json(error || books)
-      client.close()
-    })
-  })
+  // Make this work!
 })
 
 app.get('/api/books/:id', function(request, response) {
-  const client = new mongodb.MongoClient(uri)
-
-  client.connect(function() {
-    const db = client.db('literature')
-    const collection = db.collection('books')
-    
-    let id
-    try {
-      id = new mongodb.ObjectID(request.params.id)
-    } catch (error) {
-      response.status(500).send(error)
-      return
-    }
-    
-    const searchObject = { _id: id }
-    
-    collection.findOne(searchObject, function(error, book) {
-      response.json(error || book)
-      client.close()
-    })
-  })
+  // Make this work, too!
 })
 
 app.get('/', function(request, response) {
