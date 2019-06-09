@@ -45,15 +45,15 @@
   
   <body>
     <div id="name">
-      <!-- Show the author name here. -->
+      <!-- The author name will go here. -->
     </div>
     
     <div id="life">
-      <!-- Show the author's birth and death years here. -->
+      <!-- The author's birth and death years go here. -->
     </div>
     
     <div id="books">
-      <!-- Show the books by the author here. -->
+      <!-- Books by the author go here. -->
     </div>
     
     <a href="/">&lt; Back</a>
@@ -65,10 +65,8 @@
       const encodedAuthorName = urlParts[urlParts.length - 1]
       const authorName = decodeURIComponent(encodedAuthorName)
       
-      // Do something with the name...
-      
       const nameNode = document.getElementById('name')
-      nameNode.innerHTML = `<h1>${authorName}</h1>`;
+      nameNode.innerHTML = `<h1>${authorName}</h1>`
 
       function show(books) {
         if (books.length) {

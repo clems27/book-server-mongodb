@@ -53,10 +53,6 @@ app.get('/api/books/:id', function(request, response) {
   })
 })
 
-
-
-/* Use these if you do not want to use React. */
-
 app.get('/', function(request, response) {
   response.sendFile(__dirname + '/index.html');
 })
@@ -68,7 +64,5 @@ app.get('/books/:id', function(request, response) {
 app.get('/authors/:name', function(request, response) {
   response.sendFile(__dirname + '/author.html');
 })
-
-
 
 app.listen(process.env.PORT)

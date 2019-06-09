@@ -45,26 +45,24 @@
   
   <body>
     <div id="book">
-      <!-- Show the book here. -->
+      <!-- The book will go here. -->
     </div>
     
     <div id="read">
-      <!-- Show a button here. -->
+      <!-- A "Read now!" link will go here. -->
     </div>
     
     <div id="more">
-      <!-- Put a link to more books by the author here. -->
+      <!-- The "More by this author" link will go here. -->
     </div>
     
     <a href="/">&lt; Back</a>
 
     <script>
-      // Get the ID string of the book.
+      // Get the book ID.
       const url = location.href
       const urlParts = url.split('/')
       const bookID = urlParts[urlParts.length - 1]
-      
-      // Do something with the ID...
       
       function showBook(book) {
         const bookNode = document.getElementById('book')
