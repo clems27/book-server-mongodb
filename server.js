@@ -11,7 +11,7 @@ app.get('/api/books', function(request, response) {
 
   client.connect(function() {
     const db = client.db("literature")
-    const tracksCollection = db.collection("books")
+    const booksCollection = db.collection("books")
     const searchObject = {}
      if(request.query.author){
        searchObject.author=request.query.author
@@ -30,7 +30,7 @@ app.get('/api/books', function(request, response) {
     if(request.query.url){
        searchObject.url=request.query.url
     }
-    tracksCollection.find(searchObject).toArray(function(error, books){
+    booksCollection.find(searchObject).toArray(function(error, books){
       response.json(error || books)
     client.close()
     })
@@ -50,8 +50,8 @@ app.get('/api/books/:id', function(request, response) {
 
   client.connect(function() {
     const db = client.db("literature")
-    const tracksCollection = db.collection("books")
-    tracksCollection.findOne(searchObject, function(error, books) {
+    const booksCollection = db.collection("books")
+    booksCollection.findOne(searchObject, function(error, books) {
       if(books===null){
       return response.status(404).json({Error:`book not found`})
       }
