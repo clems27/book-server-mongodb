@@ -16,6 +16,7 @@ app.get('/api/books', function(request, response) {
      if(request.query.author){
        searchObject.author=request.query.author
     }
+    
     if(request.query.title){
        searchObject.title=request.query.title
     }
