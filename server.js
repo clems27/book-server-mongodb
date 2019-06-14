@@ -12,9 +12,24 @@ app.get('/api/books', function(request, response) {
   client.connect(function() {
     const db = client.db("literature")
     const tracksCollection = db.collection("books")
-    const searchObject = {author:"Emperor of Rome Marcus"}
-    console.log(searchObject)
-    tracksCollection.find().toArray(function(error, books){
+    const searchObject = {}
+     if(request.query.author){
+       searchObject.author=request.query.author
+    }
+    if(request.query.title){
+       searchObject.title=request.query.title
+    }
+    
+    if(request.query.author_birth_year){
+       searchObject.author_birth_year=request.query.author_birth_year
+    }
+    if(request.query.author_death_year){
+       searchObject.author_death_year= parseInt(request.query.author_death_year)
+    }
+    if(request.query.url){
+       searchObject.url=request.query.url
+    }
+    tracksCollection.find(searchObject).toArray(function(error, books){
       response.json(error || books)
     client.close()
     })
