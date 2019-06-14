@@ -43,33 +43,40 @@ app.get('/api/books/:id', function(request, response) {
   })
 })
 
-app.get('/api/books/search', function(request, response) {
-  const client = new mongodb.MongoClient(uri)
+// app.get('/api/books/search', function(request, response) {
+//   const client = new mongodb.MongoClient(uri)
 
-  client.connect(function() {
-    const db = client.db("literature")
-    const tracksCollection = db.collection("books")
-    const searchObject = {}
-    console.log(searchObject)
-    if(request.query.artist){
-       searchObject.artist=request.query.artist
-    }
-    if(request.query.album){
-       searchObject.album=request.query.album
-    }
+//   client.connect(function() {
+//     const db = client.db("literature")
+//     const tracksCollection = db.collection("books")
+//     const searchObject = {}
+//     console.log(searchObject)
+//     if(request.query.author){
+//        searchObject.author=request.query.author
+//     }
+//     if(request.query.title){
+//        searchObject.title=request.query.title
+//     }
     
-    if(request.query.title){
-       searchObject.title=request.query.title
-    }
-    if(request.query.year){
-       searchObject.year= parseInt(request.query.year)
-    }
-    tracksCollection.find(searchObject).toArray(function(error, tracks){
-      response.json(error || tracks)
-    client.close()
-    })
-  })
-})
+//     if(request.query.title){
+//        searchObject.title=request.query.title
+//     }
+//     if(request.query.author_birth_year){
+//        searchObject.author_birth_year= parseInt(request.query.author_birth_year)
+//     }
+//     if(request.query.author_death_year){
+//       searchObject.author_death_year=parseInt(request.query.author_death_year)
+//     }
+      
+//     if(request.query.url){
+//        searchObject.url=request.query.url
+//     }
+//     tracksCollection.find(searchObject).toArray(function(error, tracks){
+//       response.json(error || tracks)
+//     client.close()
+//     })
+//   })
+// })
 
 app.get('/', function(request, response) {
   response.sendFile(__dirname + '/index.html');
