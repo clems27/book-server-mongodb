@@ -43,10 +43,6 @@ app.get('/api/books/:id', function(request, response) {
   })
 })
 
-function isValidHex(stringId) {
-return stringId.length===24;
-}
-
 app.get('/', function(request, response) {
   response.sendFile(__dirname + '/index.html');
 })
@@ -58,5 +54,10 @@ app.get('/books/:id', function(request, response) {
 app.get('/authors/:name', function(request, response) {
   response.sendFile(__dirname + '/author.html');
 })
+
+function isValidHex(stringId) {
+return stringId.length===24;
+}
+
 
 app.listen(process.env.PORT)
