@@ -22,7 +22,7 @@ app.get('/api/books', function(request, response) {
     }
     
     if(request.query.author_birth_year){
-       searchObject.author_birth_year=request.query.author_birth_year
+       searchObject.author_birth_year=parseInt(request.query.author_birth_year)
     }
     if(request.query.author_death_year){
        searchObject.author_death_year= parseInt(request.query.author_death_year)
