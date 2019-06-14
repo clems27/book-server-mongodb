@@ -21,7 +21,31 @@ app.get('/api/books', function(request, response) {
 
 app.get('/api/books/:id', function(request, response) {
   // Make this work, too!
+    const client = new mongodb.MongoClient(uri)  
+    const stringId = request.params.id
+    if(!isValidHex(stringId)){
+        return response.status(400).json({Error:'Invalid Id'})
+
+    }
+    const id = new mongodb.ObjectID(stringId) 
+    const searchObject = { _id: id }
+
+  client.connect(function() {
+    const db = client.db("literature")
+    const tracksCollection = db.collection("books")
+    tracksCollection.findOne(searchObject, function(error, books) {
+      if(books===null){
+      return response.status(404).json({Error:`book not found`})
+      }
+      response.status(200).json(error || books)
+      client.close()
+    })
+  })
 })
+
+function isValidHex(stringId) {
+return stringId.length===24;
+}
 
 app.get('/', function(request, response) {
   response.sendFile(__dirname + '/index.html');
